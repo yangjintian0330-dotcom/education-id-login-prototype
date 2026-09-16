@@ -43,7 +43,7 @@
 </style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class=""><div class="ant-app"><div class="page_VvovN"><main class="main_EZqGG"><section class="schoolPanel_XaxZw"><div class="cover_DefxN" data-testid="school-cover"><img src="./飞象老师校园版_files/school-cover.097874cb842824fda58d.png" alt="校园风采"></div></section><section class="loginCard_F2W0q edu-login" aria-labelledby="school-title">
 <button class="edu-back" id="back" type="button" hidden>‹ 返回登录</button>
 <div class="cardHead_Tb42_"><div class="schoolBadge_VnVAs"><img src="./飞象老师校园版_files/school-logo.0567dcc371b0eeacb17c5575d7f31213.svg" alt="学校 Logo"></div><h1 class="cardTitle_Im6gR" id="school-title">欢迎登录</h1></div>
-<div class="edu-tabs" role="tablist" aria-label="登录方式"><button id="edu-tab" role="tab" aria-selected="true" aria-controls="login-form" type="button">账号密码登录</button><button id="phone-tab" role="tab" aria-selected="false" aria-controls="login-form" tabindex="-1" type="button">手机号验证码登录</button></div>
+<div class="edu-tabs" role="tablist" aria-label="登录方式"><button id="phone-tab" role="tab" aria-selected="true" aria-controls="login-form" type="button">手机号验证码登录</button><button id="edu-tab" role="tab" aria-selected="false" aria-controls="login-form" tabindex="-1" type="button">账号密码登录</button></div>
 <p class="edu-intro" id="intro" hidden>首次使用账号密码登录，请设置新密码</p>
 <form id="login-form" class="edu-form" novalidate>
 <div id="fields"></div>
@@ -56,7 +56,7 @@
 (() => {
   const $ = id => document.getElementById(id);
   const card = document.querySelector('.edu-login');
-  let mode = 'edu', educationId = '', countdown = 0, timer;
+  let mode = 'phone', educationId = '', countdown = 0, timer;
   const configuredIds = new Set();
   const eye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
   function field(id, label, type = 'text', autocomplete = 'off') {
@@ -127,7 +127,7 @@
     $(name + '-tab').onkeydown = event => {
       if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
         event.preventDefault();
-        const target = event.key === 'Home' ? 'edu' : event.key === 'End' ? 'phone' : name === 'phone' ? 'edu' : 'phone';
+        const target = event.key === 'Home' ? 'phone' : event.key === 'End' ? 'edu' : name === 'phone' ? 'edu' : 'phone';
         switchTo(target); $(target + '-tab').focus();
       }
     };
@@ -171,9 +171,9 @@
     } else if (mode === 'phone' || mode === 'forgot') {
       if ($('code').value !== '123456') { $('message').textContent = '验证码错误，演示验证码为 123456。'; return; }
       render('done');
-    } else { $('consent').checked = false; render('edu'); }
+    } else { $('consent').checked = false; render('phone'); }
   };
-  render('edu');
+  render('phone');
 })();
 
 </script></body></html>
