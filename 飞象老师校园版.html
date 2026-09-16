@@ -43,8 +43,8 @@
 </style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class=""><div class="ant-app"><div class="page_VvovN"><main class="main_EZqGG"><section class="schoolPanel_XaxZw"><div class="cover_DefxN" data-testid="school-cover"><img src="./飞象老师校园版_files/school-cover.097874cb842824fda58d.png" alt="校园风采"></div></section><section class="loginCard_F2W0q edu-login" aria-labelledby="school-title">
 <button class="edu-back" id="back" type="button" hidden>‹ 返回登录</button>
 <div class="cardHead_Tb42_"><div class="schoolBadge_VnVAs"><img src="./飞象老师校园版_files/school-logo.0567dcc371b0eeacb17c5575d7f31213.svg" alt="学校 Logo"></div><h1 class="cardTitle_Im6gR" id="school-title">欢迎登录</h1></div>
-<div class="edu-tabs" role="tablist" aria-label="登录方式"><button id="edu-tab" role="tab" aria-selected="true" aria-controls="login-form" type="button">教育 ID 登录</button><button id="phone-tab" role="tab" aria-selected="false" aria-controls="login-form" tabindex="-1" type="button">手机号验证码登录</button></div>
-<p class="edu-intro" id="intro" hidden>首次使用教育 ID 登录，请设置新密码</p>
+<div class="edu-tabs" role="tablist" aria-label="登录方式"><button id="edu-tab" role="tab" aria-selected="true" aria-controls="login-form" type="button">账号密码登录</button><button id="phone-tab" role="tab" aria-selected="false" aria-controls="login-form" tabindex="-1" type="button">手机号验证码登录</button></div>
+<p class="edu-intro" id="intro" hidden>首次使用账号密码登录，请设置新密码</p>
 <form id="login-form" class="edu-form" novalidate>
 <div id="fields"></div>
 <button id="forgot" class="edu-forgot" type="button">忘记密码？</button>
@@ -72,7 +72,7 @@
     $('back').hidden = !reset && !forgot;
     document.querySelector('.edu-tabs').hidden = reset || done || forgot;
     $('intro').hidden = !reset && !forgot;
-    $('intro').textContent = forgot ? '完成账号安全验证后，可设置登录密码' : '首次使用教育 ID 登录，请设置新密码';
+    $('intro').textContent = forgot ? '完成账号安全验证后，可设置登录密码' : '首次使用账号密码登录，请设置新密码';
     $('agreement').hidden = reset || done || forgot;
     $('school-title').textContent = forgot ? '忘记密码' : reset ? '设置新密码' : done ? '登录成功' : '欢迎登录';
     $('submit').textContent = forgot ? '保存' : reset ? '设置密码并登录' : done ? '返回登录' : '登录';
@@ -96,7 +96,7 @@
         update();
       };
     } else if (mode === 'edu') {
-      $('fields').innerHTML = field('education-id', '请输入教育 ID', 'text', 'username') + field('password', '请输入密码', 'password', 'current-password');
+      $('fields').innerHTML = field('education-id', '请输入账号', 'text', 'username') + field('password', '请输入密码', 'password', 'current-password');
       $('education-id').value = educationId;
     } else if (reset) {
       $('fields').innerHTML = field('new-password', '请输入新密码', 'password', 'new-password') + field('confirm-password', '请再次输入新密码', 'password', 'new-password') + '<p class="edu-hint">密码长度在8-20位，应包含数字、大写字母、小写字母、符号（除空格）的两种或以上</p>';
