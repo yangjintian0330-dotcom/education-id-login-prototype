@@ -30,7 +30,7 @@
 .edu-intro{margin:18px 24px 24px;text-align:center;font-size:13px;color:#99988f}
 .edu-hint{font-size:12px;color:#99988f;margin:8px 0 0;line-height:18px}
 .edu-login.is-reset .cardHead_Tb42_{padding-top:56px}
-.edu-login.is-reset .edu-message{height:30px}
+.edu-login.is-reset .edu-message{height:28px;line-height:20px;padding-top:2px;box-sizing:border-box}
 .edu-login [hidden]{display:none!important}
 .edu-login .edu-success{text-align:center;color:#305c4e;font-size:14px;line-height:24px;margin:28px 0}
 @media(max-width:767px){.edu-login .edu-tabs{margin-left:24px;margin-right:24px}.edu-form{padding:0 24px}.edu-login{padding-bottom:28px}}
@@ -42,7 +42,7 @@
 .edu-login.is-forgot .edu-field{margin-bottom:12px}
 .edu-login.is-forgot .inputShell_IIhEp,.edu-login.is-forgot .codeRow_niUER{height:44px;min-height:44px}
 .edu-login.is-forgot .edu-hint{margin:16px 0 12px}
-.edu-login.is-forgot .edu-message{height:36px}
+.edu-login.is-forgot .edu-message{height:28px;line-height:20px;padding-top:2px;box-sizing:border-box}
 /* product-review:start */
 :root{--rp-accent:#305c4e;--rp-accent-strong:#244a3d;--rp-accent-weak:#edf4f1;--rp-accent-tint:#f7faf8;--rp-accent-border:#9bb9ae;--rp-marker:#990066;--rp-marker-strong:#7a0052}
 .review-panel{position:fixed;top:60px;right:32px;width:420px;height:76vh;min-width:320px;min-height:360px;background:#fff;z-index:2147483001;border-radius:16px;box-shadow:0 12px 48px -8px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.06);display:none;flex-direction:column;overflow:hidden;resize:both;font-family:PingFang SC,Microsoft YaHei,system-ui,sans-serif}
@@ -197,7 +197,7 @@
       const password = $('new-password').value;
       const categories = [/\d/, /[A-Z]/, /[a-z]/, /[^A-Za-z0-9\s]/].filter(pattern => pattern.test(password)).length;
       if (!/^[\x21-\x7e]{8,20}$/.test(password) || categories < 2) {
-        showFormError('密码需为 8–20 位，且包含上述至少两种字符，不含空格。', ['new-password']);
+        showFormError('密码格式不正确，请按上方规则重新设置', ['new-password']);
         $('new-password').focus(); return;
       }
       if (password !== $('confirm-password').value) {
@@ -240,7 +240,7 @@
 
 <script type="text/markdown" id="prdSrc">
 # 飞象老师校园版登录页
-> v1.4 · Web 桌面端 · 2026-09-23
+> v1.5 · Web 桌面端 · 2026-09-23
 
 ## 1. 登录方式切换
 展示：手机号验证码登录、账号密码登录两种方式。
@@ -301,9 +301,11 @@
 - 密码长度 8–20 位，不可包含空格
 - 数字、大写字母、小写字母、符号四类字符中至少包含两类
 - 两次输入必须一致
+- 密码规则使用灰色常驻说明；校验失败时只补充一行红色结果提示，避免重复展示整条规则
+- 红色提示区固定为单行高度，与「设置密码并登录」按钮保持间距，不遮挡按钮
 
 异常：
-- 新密码不符合规则 →「密码需为 8–20 位，且包含上述至少两种字符，不含空格」
+- 新密码不符合规则 →「密码格式不正确，请按上方规则重新设置」
 - 两次密码不一致 →「两次输入的密码不一致，请重新输入」
 - 新密码与初始密码相同 →「新密码不能与初始密码相同」
 - 保存失败 →「密码设置失败，请稍后重试」
@@ -346,7 +348,7 @@
 
 <script>
 var PRD_MD=(document.getElementById('prdSrc')||{textContent:''}).textContent.trim();
-var PRD_KEY='prd:'+document.title+':v1.4';
+var PRD_KEY='prd:'+document.title+':v1.5';
 function rpInline(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');}
 function renderMd(md){
   var inList=false,out=[];
