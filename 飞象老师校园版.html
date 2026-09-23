@@ -12,7 +12,11 @@
 .edu-field .inputShell_IIhEp,.edu-field .codeRow_niUER{height:50px;box-sizing:border-box}
 .edu-login .inputShell_IIhEp:focus-within,.edu-login .codeRow_niUER:focus-within{border-color:#567b6d;box-shadow:0 0 0 2px #305c4e0a}
 .edu-login input{width:100%;font-family:inherit}
-.edu-login .edu-message{height:36px;margin:0;color:#b4493c;font-size:12px;line-height:18px}
+.edu-login .edu-message{height:36px;margin:0;font-size:13px;line-height:18px;transition:color .2s ease}
+.edu-login .edu-message.is-error{color:#d14343}
+.edu-login .edu-message.is-success{color:#305c4e}
+.edu-login .inputShell_IIhEp.has-error,.edu-login .codeRow_niUER.has-error{border-color:#d14343;background:#fff9f8}
+.edu-login .inputShell_IIhEp.has-error:focus-within,.edu-login .codeRow_niUER.has-error:focus-within{border-color:#d14343;box-shadow:0 0 0 2px rgba(209,67,67,.1)}
 .edu-login .loginButton_hqmzG{width:100%;margin-top:0;background:#305c4e;font-size:16px}
 .edu-login .loginButton_hqmzG:hover{background:#244a3d}
 .edu-login .loginButton_hqmzG:disabled{background:#c8c7c2}
@@ -68,7 +72,8 @@
   const $ = id => document.getElementById(id);
   const card = document.querySelector('.edu-login');
   let mode = 'phone', educationId = '', countdown = 0, timer;
-  const configuredIds = new Set();
+  const validLoginIds = new Set(['teacher001', '13800000000']);
+  let currentPassword = 'Fx123456!', needsPasswordReset = true;
   const eye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
   function field(id, label, type = 'text', autocomplete = 'off') {
     return `<div class="edu-field"><label class="srOnly__jW4M" for="${id}">${label}</label><div class="inputShell_IIhEp"><input id="${id}" type="${type}" placeholder="${label}" autocomplete="${autocomplete}" maxlength="${type === 'password' ? 64 : 40}">${type === 'password' ? `<button type="button" class="edu-eye" data-input="${id}" aria-label="显示${label}" aria-pressed="false">${eye}</button>` : ''}</div></div>`;
@@ -79,7 +84,7 @@
     card.classList.toggle('is-reset', reset);
     card.classList.toggle('is-forgot', forgot);
     $('forgot').hidden = mode !== 'edu';
-    $('message').style.color = ''; 
+    $('message').className = 'edu-message';
     $('back').hidden = !reset && !forgot;
     document.querySelector('.edu-tabs').hidden = reset || done || forgot;
     $('intro').hidden = !reset && !forgot;
@@ -135,6 +140,21 @@
     else ready = true;
     $('submit').disabled = !ready;
   }
+  function clearFormFeedback() {
+    $('message').textContent = '';
+    $('message').className = 'edu-message';
+    card.querySelectorAll('.has-error').forEach(element => element.classList.remove('has-error'));
+  }
+  function showFormError(message, inputIds = []) {
+    clearFormFeedback();
+    $('message').textContent = message;
+    $('message').className = 'edu-message is-error';
+    inputIds.forEach(id => {
+      const input = $(id);
+      const shell = input?.closest('.inputShell_IIhEp, .codeRow_niUER');
+      if (shell) shell.classList.add('has-error');
+    });
+  }
   function switchTo(next) {
     if (mode === 'edu') educationId = $('education-id').value.trim();
     render(next);
@@ -152,7 +172,7 @@
   $('forgot').setAttribute('data-track', '/click/teacherLoginPage/forgotPassword | 点击忘记密码 | 无');
   $('forgot').onclick = () => { educationId = $('education-id').value.trim(); render('forgot'); $('phone').focus(); };
   $('back').onclick = () => { render('edu'); $('edu-tab').focus(); };
-  $('login-form').addEventListener('input', () => { $('message').textContent = ''; update(); });
+  $('login-form').addEventListener('input', () => { clearFormFeedback(); update(); });
   $('fields').addEventListener('click', event => {
     const toggle = event.target.closest('[data-input]');
     if (!toggle) return;
@@ -166,25 +186,30 @@
     if ($('submit').disabled) return;
     if (mode === 'edu') {
       educationId = $('education-id').value.trim();
-      render(configuredIds.has(educationId) ? 'done' : 'reset');
+      if (!validLoginIds.has(educationId) || $('password').value !== currentPassword) {
+        showFormError('手机号、账号或密码错误，请重新输入。', ['education-id', 'password']);
+        $('password').focus(); return;
+      }
+      render(needsPasswordReset ? 'reset' : 'done');
       if (mode === 'reset') $('new-password').focus();
     } else if (mode === 'reset' || mode === 'forgot') {
-      if (mode === 'forgot' && $('code').value !== '123456') { $('message').textContent = '验证码错误，演示验证码为 123456。'; $('code').focus(); return; }
+      if (mode === 'forgot' && $('code').value !== '123456') { showFormError('验证码错误，演示验证码为 123456。', ['code']); $('code').focus(); return; }
       const password = $('new-password').value;
       const categories = [/\d/, /[A-Z]/, /[a-z]/, /[^A-Za-z0-9\s]/].filter(pattern => pattern.test(password)).length;
       if (!/^[\x21-\x7e]{8,20}$/.test(password) || categories < 2) {
-        $('message').textContent = '密码需为 8–20 位，且包含上述至少两种字符，不含空格。';
+        showFormError('密码需为 8–20 位，且包含上述至少两种字符，不含空格。', ['new-password']);
         $('new-password').focus(); return;
       }
       if (password !== $('confirm-password').value) {
-        $('message').textContent = '两次输入的密码不一致，请重新输入。';
+        showFormError('两次输入的密码不一致，请重新输入。', ['confirm-password']);
         $('confirm-password').focus(); return;
       }
-      if (educationId) configuredIds.add(educationId);
+      currentPassword = password;
+      needsPasswordReset = false;
       if (mode === 'forgot') {
         render('edu');
         $('message').textContent = '密码已保存，请使用新密码登录（演示）。';
-        $('message').style.color = '#305c4e';
+        $('message').className = 'edu-message is-success';
       } else render('done');
     } else if (mode === 'phone' || mode === 'forgot') {
       if ($('code').value !== '123456') { $('message').textContent = '验证码错误，演示验证码为 123456。'; return; }
@@ -215,7 +240,7 @@
 
 <script type="text/markdown" id="prdSrc">
 # 飞象老师校园版登录页
-> v1.2 · Web 桌面端 · 2026-09-23
+> v1.3 · Web 桌面端 · 2026-09-23
 
 ## 1. 登录方式切换
 展示：手机号验证码登录、账号密码登录两种方式。
@@ -234,6 +259,12 @@
 ## 3. 账号密码登录 [UPDATED]
 展示：手机号或账号、密码、密码显隐按钮、「忘记密码」、登录按钮。
 
+演示数据：
+- 正确账号：`teacher001`
+- 正确手机号：`13800000000`
+- 初始密码：`Fx123456!`
+- 账号或手机号搭配初始密码均可通过校验，并在首次登录时进入「设置新密码」
+
 交互：
 - 输入手机号或账号和密码；两项均非空且同意用户协议后，登录按钮可点击
 - 点击密码显隐按钮 → 在明文与密文之间切换
@@ -247,11 +278,14 @@
 - 密码默认隐藏
 - 切换到其他登录方式后，已输入账号保留，密码清空
 - 账号或密码错误时使用统一提示，不区分账号是否存在
+- 账号、手机号或密码不匹配时，在表单内显示红字提示；账号和密码输入框同步显示红色边框及浅红背景
+- 错误提示字号为 13px、颜色为 `#D14343`，输入框背景为 `#FFF9F8`；用户修改任一输入内容后清除错误态
+- 登录接口异常也使用表单内红字提示，不使用 Toast
 
 异常：
 - 手机号或账号为空 →「请输入手机号或账号」
 - 密码为空 →「请输入密码」
-- 账号或密码错误 →「账号或密码错误，请重新输入」
+- 手机号、账号或密码错误 →「手机号、账号或密码错误，请重新输入」
 - 账号已停用 →「当前账号已停用，请联系管理员」
 - 登录失败 →「登录失败，请稍后重试」
 
@@ -312,7 +346,7 @@
 
 <script>
 var PRD_MD=(document.getElementById('prdSrc')||{textContent:''}).textContent.trim();
-var PRD_KEY='prd:'+document.title+':v1.2';
+var PRD_KEY='prd:'+document.title+':v1.3';
 function rpInline(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');}
 function renderMd(md){
   var inList=false,out=[];
