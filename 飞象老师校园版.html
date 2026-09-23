@@ -73,6 +73,7 @@
   const card = document.querySelector('.edu-login');
   let mode = 'phone', educationId = '', countdown = 0, timer;
   const validLoginIds = new Set(['teacher001', '13800000000']);
+  const homeUrl = 'https://pro.feixianglaoshi.com/#/home';
   let currentPassword = 'Fx123456!', needsPasswordReset = true;
   const eye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
   function field(id, label, type = 'text', autocomplete = 'off') {
@@ -210,7 +211,7 @@
         render('edu');
         $('message').textContent = '密码已保存，请使用新密码登录（演示）。';
         $('message').className = 'edu-message is-success';
-      } else render('done');
+      } else window.location.assign(homeUrl);
     } else if (mode === 'phone' || mode === 'forgot') {
       if ($('code').value !== '123456') { $('message').textContent = '验证码错误，演示验证码为 123456。'; return; }
       render('done');
@@ -240,7 +241,7 @@
 
 <script type="text/markdown" id="prdSrc">
 # 飞象老师校园版登录页
-> v1.5 · Web 桌面端 · 2026-09-23
+> v1.6 · Web 桌面端 · 2026-09-23
 
 ## 1. 登录方式切换
 展示：手机号验证码登录、账号密码登录两种方式。
@@ -295,7 +296,8 @@
 交互：
 - 首次账号密码校验通过后进入本页
 - 点击「返回登录」→ 返回账号密码登录，可重新选择登录方式
-- 两次密码输入有效且一致后，可设置密码并继续登录
+- 两次密码输入有效且一致后，保存新密码并跳转飞象老师首页
+- 跳转地址：`https://pro.feixianglaoshi.com/#/home`
 
 规则：
 - 密码长度 8–20 位，不可包含空格
@@ -348,7 +350,7 @@
 
 <script>
 var PRD_MD=(document.getElementById('prdSrc')||{textContent:''}).textContent.trim();
-var PRD_KEY='prd:'+document.title+':v1.5';
+var PRD_KEY='prd:'+document.title+':v1.6';
 function rpInline(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');}
 function renderMd(md){
   var inList=false,out=[];
