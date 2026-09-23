@@ -209,8 +209,6 @@
       needsPasswordReset = false;
       if (mode === 'forgot') {
         render('edu');
-        $('message').textContent = '密码已保存，请使用新密码登录（演示）。';
-        $('message').className = 'edu-message is-success';
       } else window.location.assign(homeUrl);
     } else if (mode === 'phone' || mode === 'forgot') {
       if ($('code').value !== '123456') { $('message').textContent = '验证码错误，演示验证码为 123456。'; return; }
@@ -241,7 +239,7 @@
 
 <script type="text/markdown" id="prdSrc">
 # 飞象老师校园版登录页
-> v1.6 · Web 桌面端 · 2026-09-23
+> v1.7 · Web 桌面端 · 2026-09-23
 
 ## 1. 登录方式切换
 展示：手机号验证码登录、账号密码登录两种方式。
@@ -318,7 +316,7 @@
 交互：
 - 从账号密码登录点击「忘记密码」进入本页
 - 完成手机号验证并输入两次一致的新密码后，保存按钮可点击
-- 保存成功 → 返回账号密码登录，并提示「密码已保存，请使用新密码登录」
+- 保存成功 → 直接返回账号密码登录，不展示成功提示
 - 点击「返回登录」→ 返回账号密码登录
 
 规则：
@@ -350,7 +348,7 @@
 
 <script>
 var PRD_MD=(document.getElementById('prdSrc')||{textContent:''}).textContent.trim();
-var PRD_KEY='prd:'+document.title+':v1.6';
+var PRD_KEY='prd:'+document.title+':v1.7';
 function rpInline(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');}
 function renderMd(md){
   var inList=false,out=[];
