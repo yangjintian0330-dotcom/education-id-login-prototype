@@ -27,6 +27,8 @@
 .edu-login .edu-eye{border:0;background:transparent;cursor:pointer;color:#8f958e;padding:4px;display:flex;align-items:center}
 .edu-eye svg{width:19px;height:19px}
 .edu-back{position:absolute;top:22px;left:28px;border:0;background:none;font-size:13px;color:#77796f;cursor:pointer;padding:0}
+.edu-product-switch{position:absolute;top:20px;right:28px;z-index:2;color:#305c4e;font-size:13px;line-height:20px;text-decoration:none}
+.edu-product-switch:hover{color:#244a3d;text-decoration:underline}
 .edu-intro{margin:18px 24px 24px;text-align:center;font-size:13px;color:#99988f}
 .edu-hint{font-size:12px;color:#99988f;margin:8px 0 0;line-height:18px}
 .edu-login.is-reset .cardHead_Tb42_{padding-top:56px}
@@ -56,6 +58,7 @@
 /* product-review:end */
 /* education-login:end */
 </style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class=""><div class="ant-app"><div class="page_VvovN"><main class="main_EZqGG"><section class="schoolPanel_XaxZw"><div class="cover_DefxN" data-testid="school-cover"><img src="./飞象老师校园版_files/school-cover.097874cb842824fda58d.png" alt="校园风采"></div></section><section class="loginCard_F2W0q edu-login" aria-labelledby="school-title">
+<a class="edu-product-switch" href="./zhixue.html" data-sec="7">切换到智学登录 ›</a>
 <button class="edu-back" id="back" type="button" hidden>‹ 返回登录</button>
 <div class="cardHead_Tb42_"><div class="schoolBadge_VnVAs"><img src="./飞象老师校园版_files/school-logo.0567dcc371b0eeacb17c5575d7f31213.svg" alt="学校 Logo"></div><h1 class="cardTitle_Im6gR" id="school-title">欢迎登录</h1></div>
 <div class="edu-tabs" role="tablist" aria-label="登录方式" data-sec="1"><button id="phone-tab" role="tab" aria-selected="true" aria-controls="login-form" type="button" data-track="/click/teacherLoginPage/switchPhoneLogin | 切换手机号验证码登录 | 无">手机号验证码登录</button><button id="edu-tab" role="tab" aria-selected="false" aria-controls="login-form" tabindex="-1" type="button" data-track="/click/teacherLoginPage/switchAccountLogin | 切换账号密码登录 | 无">账号密码登录</button></div>
@@ -239,7 +242,14 @@
 
 <script type="text/markdown" id="prdSrc">
 # 飞象老师校园版登录页
-> v1.7 · Web 桌面端 · 2026-09-23
+> v1.8 · Web 桌面端 · 2026-09-24
+
+## 0. 产品登录页切换 [UPDATED]
+展示：登录卡右上角展示「切换到智学登录 ›」。
+
+交互：
+- 点击后打开同项目的智学登录页 `zhixue.html`
+- 在登录、首次设置新密码和忘记密码页面均保留入口
 
 ## 1. 登录方式切换
 展示：手机号验证码登录、账号密码登录两种方式。
@@ -348,7 +358,7 @@
 
 <script>
 var PRD_MD=(document.getElementById('prdSrc')||{textContent:''}).textContent.trim();
-var PRD_KEY='prd:'+document.title+':v1.7';
+var PRD_KEY='prd:'+document.title+':v1.8';
 function rpInline(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');}
 function renderMd(md){
   var inList=false,out=[];

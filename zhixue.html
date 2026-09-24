@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="google" content="notranslate">
+<title>智学教师版登录</title>
+<style>
+:root{
+  --zx-primary:#3478f6;--zx-primary-hover:#2868dc;--zx-primary-soft:#eff5ff;
+  --zx-page-blue:#eaf4ff;--zx-white:#fff;--zx-text:#182129;--zx-text-2:#5f6670;
+  --zx-text-3:#9b9fa6;--zx-border:#e5e8ed;--zx-line:#d9dde4;--zx-error:#d14343;
+  --zx-error-bg:#fff9f8;--zx-shadow:0 10px 36px rgba(41,84,145,.08);
+  --zx-radius-card:14px;--zx-radius-input:8px;--zx-font:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{width:100%;height:100%;margin:0}
+body{min-width:1200px;min-height:720px;color:var(--zx-text);font-family:var(--zx-font);background:var(--zx-page-blue)}
+button,input{font:inherit}
+button,a{touch-action:manipulation}
+.zx-page{display:grid;grid-template-columns:48% 52%;width:100%;height:100%;min-height:720px;overflow:hidden;background:linear-gradient(90deg,var(--zx-white) 0 48%,var(--zx-page-blue) 48% 100%)}
+.zx-left{position:relative;display:flex;align-items:center;justify-content:center;padding:54px 54px 76px;background:var(--zx-white)}
+.zx-logo{position:absolute;top:28px;left:34px;width:122px;height:auto}
+.zx-shell{width:480px}
+.zx-switch{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-radius:var(--zx-radius-card) var(--zx-radius-card) 0 0;background:var(--zx-primary-soft);color:var(--zx-text);font-size:14px}
+.zx-switch strong{font-weight:600}
+.zx-switch a{color:var(--zx-primary);font-weight:600;text-decoration:none}
+.zx-switch a:hover{text-decoration:underline}
+.zx-card{position:relative;min-height:472px;padding:38px 52px 30px;border:1px solid var(--zx-border);border-top:0;border-radius:0 0 var(--zx-radius-card) var(--zx-radius-card);background:var(--zx-white);box-shadow:var(--zx-shadow)}
+.zx-back{position:absolute;top:20px;left:24px;border:0;background:none;color:var(--zx-text-2);font-size:13px;cursor:pointer;padding:4px}
+.zx-title{margin:2px 0 8px;text-align:center;font-size:24px;line-height:34px;font-weight:700}
+.zx-intro{margin:0 0 24px;text-align:center;color:var(--zx-text-3);font-size:13px;line-height:20px}
+.zx-tabs{display:flex;gap:30px;margin:4px 0 36px;border-bottom:1px solid transparent}
+.zx-tabs button{position:relative;border:0;background:none;padding:0 4px 13px;color:var(--zx-text-3);font-size:17px;cursor:pointer;white-space:nowrap}
+.zx-tabs button[aria-selected="true"]{color:var(--zx-text);font-weight:650}
+.zx-tabs button[aria-selected="true"]:after{content:"";position:absolute;left:2px;right:2px;bottom:0;height:3px;border-radius:3px;background:var(--zx-primary)}
+.zx-form{margin:0}
+.zx-field{margin-bottom:16px}
+.zx-input-shell,.zx-code-row{height:54px;display:flex;align-items:center;border-bottom:1px solid var(--zx-line);transition:border-color .2s,background .2s,box-shadow .2s}
+.zx-input-shell:focus-within,.zx-code-row:focus-within{border-bottom-color:var(--zx-primary);box-shadow:0 1px 0 var(--zx-primary)}
+.zx-input-shell.has-error,.zx-code-row.has-error{border:1px solid var(--zx-error);border-radius:var(--zx-radius-input);background:var(--zx-error-bg);padding:0 12px;box-shadow:none}
+.zx-input-shell input,.zx-code-row input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--zx-text);font-size:15px}
+.zx-input-shell input::placeholder,.zx-code-row input::placeholder{color:var(--zx-text-3)}
+.zx-eye{width:30px;height:30px;display:grid;place-items:center;border:0;background:none;color:var(--zx-text-3);cursor:pointer;padding:5px}
+.zx-eye svg{width:19px;height:19px}
+.zx-code-row button{border:0;border-left:1px solid var(--zx-line);background:none;color:var(--zx-primary);padding:0 0 0 22px;cursor:pointer;white-space:nowrap}
+.zx-code-row button:disabled{color:#c3c7ce;cursor:not-allowed}
+.zx-forgot{display:block;margin:-6px 0 8px auto;border:0;background:none;color:var(--zx-primary);font-size:13px;cursor:pointer;padding:0;line-height:22px}
+.zx-rule{margin:8px 0 4px;color:var(--zx-text-3);font-size:12px;line-height:19px}
+.zx-message{height:28px;margin:0;color:var(--zx-error);font-size:13px;line-height:20px;padding-top:2px}
+.zx-submit{width:100%;height:52px;border:0;border-radius:var(--zx-radius-input);background:linear-gradient(100deg,#2f72ef,#48aef6);color:var(--zx-white);font-size:16px;font-weight:650;cursor:pointer;box-shadow:0 8px 18px rgba(52,120,246,.15)}
+.zx-submit:hover{background:linear-gradient(100deg,var(--zx-primary-hover),#349ae8)}
+.zx-submit:disabled{background:#c9cdd4;box-shadow:none;cursor:not-allowed}
+.zx-agreement{display:flex;align-items:flex-start;gap:8px;margin:72px -12px 0;color:var(--zx-text-2);font-size:12px;line-height:18px;cursor:pointer}
+.zx-agreement input{appearance:none;flex:0 0 16px;width:16px;height:16px;margin:1px 0 0;border:1px solid #aebfd4;border-radius:4px;background:var(--zx-primary-soft);cursor:pointer}
+.zx-agreement input:checked{border-color:var(--zx-primary);background:var(--zx-primary);box-shadow:inset 0 0 0 3px var(--zx-white)}
+.zx-agreement a{color:var(--zx-primary);text-decoration:none}
+.zx-qr{text-align:center;padding:4px 0 0}
+.zx-qr-box{width:184px;height:184px;display:grid;place-items:center;margin:0 auto 18px;border:12px solid var(--zx-white);border-radius:8px;background:repeating-conic-gradient(#172334 0 25%,#fff 0 50%) 50%/18px 18px;box-shadow:0 0 0 1px var(--zx-border)}
+.zx-qr-box span{display:block;padding:8px;background:var(--zx-white);color:var(--zx-primary);font-size:12px;font-weight:700}
+.zx-qr p{margin:0;color:var(--zx-text-2);font-size:13px}
+.zx-right{position:relative;overflow:hidden;background:linear-gradient(145deg,#e6f2ff,#d9edff)}
+.zx-quote{position:absolute;top:66px;left:68px;color:var(--zx-primary);font-size:62px;font-weight:800;line-height:1}
+.zx-right-copy{position:absolute;top:125px;left:72px;z-index:2;width:min(70%,650px);height:auto}
+.zx-planet{position:absolute;width:min(74vw,760px);right:-110px;bottom:-190px;opacity:.94}
+.zx-orbit{position:absolute;width:min(55vw,590px);right:60px;bottom:-80px;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px)}}
+.zx-footer{position:absolute;left:0;right:0;bottom:24px;text-align:center;color:var(--zx-text-3);font-size:12px}
+.zx-footer a{color:inherit}
+.zx-card.is-flow{padding-top:56px}
+.zx-card.is-flow .zx-agreement{display:none}
+.zx-card.is-forgot{padding-top:48px}
+.zx-card.is-forgot .zx-field{margin-bottom:12px}
+.zx-card.is-forgot .zx-input-shell,.zx-card.is-forgot .zx-code-row{height:46px}
+.zx-card.is-forgot .zx-rule{margin:2px 0 6px}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.zx-review-toggle{position:fixed;top:20px;right:24px;z-index:1001;display:flex;overflow:hidden;border-radius:10px;background:var(--zx-white);box-shadow:0 3px 18px rgba(0,0,0,.12);opacity:.42;transition:opacity .2s}
+.zx-review-toggle:hover{opacity:1}
+.zx-review-toggle button{border:0;background:none;padding:9px 18px;color:var(--zx-text-3);cursor:pointer}
+.zx-review-toggle button.active{background:var(--zx-primary);color:var(--zx-white)}
+.zx-review{position:fixed;top:58px;right:24px;z-index:1000;width:430px;height:78vh;display:none;flex-direction:column;overflow:hidden;border-radius:14px;background:var(--zx-white);box-shadow:0 14px 46px rgba(0,0,0,.18)}
+.zx-review.open{display:flex}
+.zx-review-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--zx-border);background:#f6f9ff}
+.zx-review-head strong{font-size:14px}.zx-review-head button{border:0;background:none;cursor:pointer;color:var(--zx-text-2)}
+.zx-review-body{padding:16px 18px 40vh;overflow:auto;font-size:13px;line-height:1.7;color:#334155}
+.zx-review-body h1{margin:0 0 8px;font-size:18px}.zx-review-body h2{margin:18px 0 8px;padding:6px 10px;border-left:3px solid var(--zx-primary);border-radius:5px;background:var(--zx-primary-soft);font-size:14px}.zx-review-body p{margin:0 0 7px}.zx-review-body ul{margin:0 0 8px;padding-left:20px}.zx-review-body li{margin-bottom:5px}.zx-review-body blockquote{margin:6px 0 12px;padding:7px 10px;background:#fff8e8;color:#8a5a00;border-radius:5px}.zx-review-body code{padding:1px 4px;border-radius:4px;background:#edf3ff;color:#265fca}
+</style>
+</head>
+<body>
+<main class="zx-page">
+  <section class="zx-left" aria-label="智学登录">
+    <img class="zx-logo" src="./zhixue_files/logo.06d8bd91d988915de4011be2ea3ef919.svg" alt="飞象星球">
+    <div class="zx-shell">
+      <div class="zx-switch" data-sec="0"><span>您正在登录 <strong>智学“教师版”</strong></span><a href="./飞象老师校园版.html">切换到飞象老师校园版 ›</a></div>
+      <section class="zx-card" id="login-card" aria-labelledby="page-title">
+        <button class="zx-back" id="back" type="button" hidden>‹ 返回登录</button>
+        <h1 class="zx-title" id="page-title" hidden>欢迎登录</h1>
+        <p class="zx-intro" id="intro" hidden></p>
+        <div class="zx-tabs" id="tabs" role="tablist" aria-label="登录方式" data-sec="1">
+          <button id="code-tab" role="tab" aria-selected="true" type="button">验证码登录</button>
+          <button id="password-tab" role="tab" aria-selected="false" type="button">密码登录</button>
+          <button id="qr-tab" role="tab" aria-selected="false" type="button">扫码登录</button>
+        </div>
+        <form class="zx-form" id="login-form" novalidate>
+          <div id="fields"></div>
+          <button class="zx-forgot" id="forgot" type="button" hidden>忘记密码？</button>
+          <p class="zx-message" id="message" aria-live="polite"></p>
+          <button class="zx-submit" id="submit" type="submit">登录</button>
+          <label class="zx-agreement" id="agreement"><input id="consent" type="checkbox"><span>我已阅读并同意<a href="#">《用户协议》</a><a href="#">《隐私政策》</a><a href="#">《儿童隐私保护政策》</a></span></label>
+        </form>
+      </section>
+    </div>
+    <div class="zx-footer"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">京ICP备2021033480号</a></div>
+  </section>
+  <section class="zx-right" aria-label="智学品牌视觉">
+    <div class="zx-quote">”</div>
+    <img class="zx-right-copy" src="./zhixue_files/right-text.3a78e79f3b9e45ee7061.png" alt="让每个孩子享有公平而有质量的教育">
+    <img class="zx-planet" src="./zhixue_files/right-planet.9dccea4bbc4044d3a8d9.png" alt="">
+    <img class="zx-orbit" src="./zhixue_files/right-logo.b858eb242046b455a6aa.png" alt="">
+  </section>
+</main>
+
+<div class="zx-review-toggle" id="review-toggle"><button class="active" type="button" data-mode="demo">演示</button><button type="button" data-mode="review">过稿</button></div>
+<aside class="zx-review" id="review-panel"><div class="zx-review-head"><strong>📋 产品稿 · 智学登录页</strong><button id="close-review" type="button">✕</button></div><div class="zx-review-body" id="review-body"></div></aside>
+
+<script type="text/markdown" id="prd-source">
+# 智学教师版登录页
+> v1.0 · Web 桌面端 · 2026-09-24
+
+## 0. 产品登录页切换
+展示：顶部提示当前为智学教师版，并提供「切换到飞象老师校园版」。
+
+交互：点击后进入同项目的飞象老师校园版登录页。
+
+## 1. 登录方式
+展示：验证码登录、密码登录、扫码登录，默认选中验证码登录。
+
+规则：验证码登录和扫码登录的页面展示、交互、校验、异常处理及成功跳转均同线上现有逻辑。
+
+## 2. 密码登录 [UPDATED]
+展示：手机号或账号、密码、密码显隐按钮、「忘记密码」、登录按钮。
+
+演示数据：
+- 正确账号：`teacher001`
+- 正确手机号：`13800000000`
+- 初始密码：`Fx123456!`
+
+交互：
+- 两项均非空且同意协议后，登录按钮可点击
+- 首次登录且账号密码正确 → 进入「设置新密码」
+- 非首次登录且账号密码正确 → 进入智学教师端
+- 点击「忘记密码」→ 进入手机号安全验证与密码重置
+
+异常：
+- 手机号、账号或密码不匹配 → 表单内红字「手机号或密码不正确」，两个输入框同步标红
+- 修改任一输入内容后清除错误态
+- 接口异常同样使用表单内红字提示，不使用 Toast
+
+## 3. 首次登录设置新密码
+展示：新密码、再次输入新密码、密码规则、密码显隐按钮、「设置密码并登录」、返回登录。
+
+规则：
+- 密码长度在 8–20 位，不可包含空格
+- 数字、大写字母、小写字母、符号四类字符中至少包含两类
+- 两次输入必须一致
+
+交互：设置成功后直接进入 `https://laoshi.feixiangxingqiu.com/`。
+
+异常：
+- 格式不正确 →「密码格式不正确，请按上方规则重新设置」
+- 两次密码不一致 →「两次输入的密码不一致，请重新输入」
+
+## 4. 忘记密码
+展示：手机号、验证码、获取验证码、新密码、再次输入新密码、密码规则、保存按钮、返回登录。
+
+交互：完成验证并保存后直接返回密码登录，不展示成功提示。
+
+异常：
+- 验证码错误 →「验证码错误，请重新输入」
+- 密码异常提示与首次设置新密码一致
+
+## 5. 协议
+密码登录须勾选《用户协议》《隐私政策》《儿童隐私保护政策》后才能提交。
+</script>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const card = $('login-card');
+  const validLoginIds = new Set(['teacher001', '13800000000']);
+  const homeUrl = 'https://laoshi.feixiangxingqiu.com/';
+  const passwordRule = '密码长度在8-20位，应包含数字、大写字母、小写字母、符号（除空格）的两种或以上';
+  const eye = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
+  let mode = 'code', account = '', currentPassword = 'Fx123456!', needsPasswordReset = true, countdown = 0, timer;
+
+  function field(id, label, type = 'text', autocomplete = 'off') {
+    return `<div class="zx-field"><label class="sr-only" for="${id}">${label}</label><div class="zx-input-shell"><input id="${id}" type="${type}" placeholder="${label}" autocomplete="${autocomplete}" maxlength="${type === 'password' ? 64 : 40}">${type === 'password' ? `<button class="zx-eye" type="button" data-eye="${id}" aria-label="显示${label}" aria-pressed="false">${eye}</button>` : ''}</div></div>`;
+  }
+  function codeField() {
+    return '<div class="zx-field"><label class="sr-only" for="code">请输入验证码</label><div class="zx-code-row"><input id="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="请输入验证码"><button id="send" type="button" disabled>获取验证码</button></div></div>';
+  }
+  function clearFeedback() {
+    $('message').textContent = '';
+    card.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
+  }
+  function showError(text, ids = []) {
+    clearFeedback();
+    $('message').textContent = text;
+    ids.forEach(id => $(id)?.closest('.zx-input-shell,.zx-code-row')?.classList.add('has-error'));
+  }
+  function setTabs() {
+    for (const name of ['code','password','qr']) {
+      $(name + '-tab').setAttribute('aria-selected', String(mode === name));
+      $(name + '-tab').tabIndex = mode === name ? 0 : -1;
+    }
+  }
+  function render(next) {
+    if (mode === 'password' && $('account')) account = $('account').value.trim();
+    mode = next;
+    const flow = mode === 'reset' || mode === 'forgot';
+    card.classList.toggle('is-flow', flow);
+    card.classList.toggle('is-forgot', mode === 'forgot');
+    $('tabs').hidden = flow;
+    $('back').hidden = !flow;
+    $('page-title').hidden = !flow;
+    $('intro').hidden = !flow;
+    $('agreement').hidden = flow;
+    $('forgot').hidden = mode !== 'password';
+    $('submit').hidden = mode === 'qr';
+    $('message').textContent = '';
+    if (!flow) $('page-title').textContent = '欢迎登录';
+    if (mode === 'code') {
+      $('fields').innerHTML = field('phone','请输入手机号','tel','tel') + codeField();
+      $('submit').textContent = '登录';
+      $('phone').maxLength = 11;
+      bindSend();
+    } else if (mode === 'password') {
+      $('fields').innerHTML = field('account','请输入手机号或账号','text','username') + field('password','请输入密码','password','current-password');
+      $('account').value = account;
+      $('submit').textContent = '登录';
+    } else if (mode === 'qr') {
+      $('fields').innerHTML = '<div class="zx-qr"><div class="zx-qr-box"><span>扫码登录</span></div><p>请使用飞象星球 App 扫码登录</p></div>';
+    } else if (mode === 'reset') {
+      $('page-title').textContent = '设置新密码';
+      $('intro').textContent = '首次使用账号密码登录，请设置新密码';
+      $('fields').innerHTML = field('new-password','请输入新密码','password','new-password') + field('confirm-password','请再次输入新密码','password','new-password') + `<p class="zx-rule">${passwordRule}</p>`;
+      $('submit').textContent = '设置密码并登录';
+    } else if (mode === 'forgot') {
+      $('page-title').textContent = '忘记密码';
+      $('intro').textContent = '完成账号安全验证后，可设置登录密码';
+      $('fields').innerHTML = field('phone','请输入手机号','tel','tel') + codeField() + field('new-password','请输入新密码','password','new-password') + field('confirm-password','请再次输入新密码','password','new-password') + `<p class="zx-rule">${passwordRule}</p>`;
+      $('submit').textContent = '保存';
+      $('phone').maxLength = 11;
+      bindSend();
+    }
+    setTabs();
+    update();
+  }
+  function bindSend() {
+    $('send').onclick = () => {
+      countdown = 60;
+      $('message').textContent = '演示验证码：123456（未发送真实短信）';
+      clearInterval(timer);
+      timer = setInterval(() => { countdown -= 1; if (countdown <= 0) clearInterval(timer); update(); }, 1000);
+      update();
+    };
+  }
+  function update() {
+    let ready = false;
+    if (mode === 'code' || mode === 'forgot') {
+      const phoneOk = /^1\d{10}$/.test($('phone').value);
+      $('send').disabled = !phoneOk || countdown > 0;
+      $('send').textContent = countdown > 0 ? `${countdown} 秒后重试` : '获取验证码';
+      ready = phoneOk && /^\d{6}$/.test($('code').value) && (mode === 'forgot' ? !!$('new-password').value && !!$('confirm-password').value : $('consent').checked);
+    } else if (mode === 'password') {
+      ready = !!$('account').value.trim() && !!$('password').value && $('consent').checked;
+    } else if (mode === 'reset') {
+      ready = !!$('new-password').value && !!$('confirm-password').value;
+    }
+    if (!$('submit').hidden) $('submit').disabled = !ready;
+  }
+  function validPassword(value) {
+    const categories = [/\d/,/[A-Z]/,/[a-z]/,/[^A-Za-z0-9\s]/].filter(pattern => pattern.test(value)).length;
+    return /^[\x21-\x7e]{8,20}$/.test(value) && categories >= 2;
+  }
+  for (const name of ['code','password','qr']) {
+    $(name + '-tab').onclick = () => render(name);
+  }
+  $('back').onclick = () => { render('password'); $('password-tab').focus(); };
+  $('forgot').onclick = () => { account = $('account').value.trim(); render('forgot'); $('phone').focus(); };
+  $('login-form').addEventListener('input', () => { clearFeedback(); update(); });
+  $('fields').addEventListener('click', event => {
+    const button = event.target.closest('[data-eye]');
+    if (!button) return;
+    const input = $(button.dataset.eye), reveal = input.type === 'password';
+    input.type = reveal ? 'text' : 'password';
+    button.setAttribute('aria-pressed', String(reveal));
+    button.setAttribute('aria-label', (reveal ? '隐藏' : '显示') + input.placeholder);
+  });
+  $('login-form').onsubmit = event => {
+    event.preventDefault();
+    if ($('submit').disabled) return;
+    if (mode === 'password') {
+      account = $('account').value.trim();
+      if (!validLoginIds.has(account) || $('password').value !== currentPassword) {
+        showError('手机号或密码不正确', ['account','password']);
+        $('password').focus();
+        return;
+      }
+      if (needsPasswordReset) { render('reset'); $('new-password').focus(); }
+      else window.location.assign(homeUrl);
+    } else if (mode === 'reset' || mode === 'forgot') {
+      if (mode === 'forgot' && $('code').value !== '123456') {
+        showError('验证码错误，请重新输入', ['code']); $('code').focus(); return;
+      }
+      const password = $('new-password').value;
+      if (!validPassword(password)) {
+        showError('密码格式不正确，请按上方规则重新设置', ['new-password']); $('new-password').focus(); return;
+      }
+      if (password !== $('confirm-password').value) {
+        showError('两次输入的密码不一致，请重新输入', ['confirm-password']); $('confirm-password').focus(); return;
+      }
+      currentPassword = password;
+      needsPasswordReset = false;
+      if (mode === 'forgot') render('password');
+      else window.location.assign(homeUrl);
+    } else if (mode === 'code') {
+      if ($('code').value !== '123456') { showError('验证码错误，请重新输入', ['code']); return; }
+      window.location.assign(homeUrl);
+    }
+  };
+
+  function inline(text) { return text.replace(/`([^`]+)`/g,'<code>$1</code>'); }
+  function renderPrd() {
+    const md = $('prd-source').textContent.trim();
+    let list = false, html = '';
+    const closeList = () => { if (list) { html += '</ul>'; list = false; } };
+    md.split('\n').forEach(line => {
+      if (/^#\s/.test(line)) { closeList(); html += `<h1>${inline(line.replace(/^#\s+/,''))}</h1>`; }
+      else if (/^##\s/.test(line)) { closeList(); html += `<h2>${inline(line.replace(/^##\s+/,''))}</h2>`; }
+      else if (/^>\s/.test(line)) { closeList(); html += `<blockquote>${inline(line.replace(/^>\s+/,''))}</blockquote>`; }
+      else if (/^-\s/.test(line)) { if (!list) { html += '<ul>'; list = true; } html += `<li>${inline(line.replace(/^-\s+/,''))}</li>`; }
+      else if (line.trim()) { closeList(); html += `<p>${inline(line)}</p>`; }
+      else closeList();
+    });
+    closeList(); $('review-body').innerHTML = html;
+  }
+  function reviewMode(next) {
+    const review = next === 'review';
+    $('review-panel').classList.toggle('open', review);
+    document.querySelectorAll('#review-toggle button').forEach(button => button.classList.toggle('active', button.dataset.mode === next));
+    if (review) renderPrd();
+  }
+  $('review-toggle').onclick = event => { const button = event.target.closest('[data-mode]'); if (button) reviewMode(button.dataset.mode); };
+  $('close-review').onclick = () => reviewMode('demo');
+  render('code');
+  if (new URLSearchParams(location.search).get('mode') === 'review') reviewMode('review');
+})();
+</script>
+</body>
+</html>
