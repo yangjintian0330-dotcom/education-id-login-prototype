@@ -24,8 +24,7 @@ button,a{touch-action:manipulation}
 .zx-shell{width:480px}
 .zx-switch{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-radius:var(--zx-radius-card) var(--zx-radius-card) 0 0;background:var(--zx-primary-soft);color:var(--zx-text);font-size:14px}
 .zx-switch strong{font-weight:600}
-.zx-switch a{color:var(--zx-primary);font-weight:600;text-decoration:none}
-.zx-switch a:hover{text-decoration:underline}
+.zx-switch-status{color:var(--zx-primary);font-weight:600}
 .zx-card{position:relative;min-height:472px;padding:38px 52px 30px;border:1px solid var(--zx-border);border-top:0;border-radius:0 0 var(--zx-radius-card) var(--zx-radius-card);background:var(--zx-white);box-shadow:var(--zx-shadow)}
 .zx-back{position:absolute;top:20px;left:24px;border:0;background:none;color:var(--zx-text-2);font-size:13px;cursor:pointer;padding:4px}
 .zx-title{margin:2px 0 8px;text-align:center;font-size:24px;line-height:34px;font-weight:700}
@@ -85,14 +84,19 @@ button,a{touch-action:manipulation}
 .zx-review-head strong{font-size:14px}.zx-review-head button{border:0;background:none;cursor:pointer;color:var(--zx-text-2)}
 .zx-review-body{padding:16px 18px 40vh;overflow:auto;font-size:13px;line-height:1.7;color:#334155}
 .zx-review-body h1{margin:0 0 8px;font-size:18px}.zx-review-body h2{margin:18px 0 8px;padding:6px 10px;border-left:3px solid var(--zx-primary);border-radius:5px;background:var(--zx-primary-soft);font-size:14px}.zx-review-body p{margin:0 0 7px}.zx-review-body ul{margin:0 0 8px;padding-left:20px}.zx-review-body li{margin-bottom:5px}.zx-review-body blockquote{margin:6px 0 12px;padding:7px 10px;background:#fff8e8;color:#8a5a00;border-radius:5px}.zx-review-body code{padding:1px 4px;border-radius:4px;background:#edf3ff;color:#265fca}
+.product-page-switch{position:fixed;top:20px;left:50%;z-index:1002;display:flex;gap:4px;padding:4px;transform:translateX(-50%);border:1px solid var(--zx-border);border-radius:12px;background:var(--zx-white);box-shadow:0 5px 22px rgba(41,84,145,.14)}
+.product-page-switch a{min-width:94px;padding:7px 15px;border-radius:8px;color:var(--zx-text-2);font-size:13px;font-weight:600;line-height:20px;text-align:center;text-decoration:none}
+.product-page-switch a:hover{color:var(--zx-primary);background:var(--zx-primary-soft)}
+.product-page-switch a.active{color:var(--zx-white);background:var(--zx-primary);box-shadow:0 3px 9px rgba(52,120,246,.22)}
 </style>
 </head>
 <body>
+<nav class="product-page-switch" aria-label="产品页面切换" data-sec="0"><a href="./飞象老师校园版.html" data-product-href="./飞象老师校园版.html">飞象老师</a><a class="active" aria-current="page" href="./zhixue.html" data-product-href="./zhixue.html">Zhixue</a></nav>
 <main class="zx-page">
   <section class="zx-left" aria-label="智学登录">
     <img class="zx-logo" src="./zhixue_files/logo.06d8bd91d988915de4011be2ea3ef919.svg" alt="飞象星球">
     <div class="zx-shell">
-      <div class="zx-switch" data-sec="0"><span>您正在登录 <strong>智学“教师版”</strong></span><a href="./飞象老师校园版.html">切换到飞象老师校园版 ›</a></div>
+      <div class="zx-switch"><span>您正在登录 <strong>智学“教师版”</strong></span><span class="zx-switch-status">教师端登录</span></div>
       <section class="zx-card" id="login-card" aria-labelledby="page-title">
         <button class="zx-back" id="back" type="button" hidden>‹ 返回登录</button>
         <h1 class="zx-title" id="page-title" hidden>欢迎登录</h1>
@@ -126,12 +130,15 @@ button,a{touch-action:manipulation}
 
 <script type="text/markdown" id="prd-source">
 # 智学教师版登录页
-> v1.0 · Web 桌面端 · 2026-09-24
+> v1.1 · Web 桌面端 · 2026-09-24
 
 ## 0. 产品登录页切换
-展示：顶部提示当前为智学教师版，并提供「切换到飞象老师校园版」。
+展示：页面顶部固定展示「飞象老师 / Zhixue」分段切换器，当前页面高亮「Zhixue」。
 
-交互：点击后进入同项目的飞象老师校园版登录页。
+交互：
+- 点击「飞象老师」进入同项目的飞象老师校园版登录页
+- 在登录、首次设置新密码和忘记密码页面均固定展示
+- 当前处于过稿模式时，切换产品后继续保持过稿模式
 
 ## 1. 登录方式
 展示：验证码登录、密码登录、扫码登录，默认选中验证码登录。
@@ -346,15 +353,22 @@ button,a{touch-action:manipulation}
     });
     closeList(); $('review-body').innerHTML = html;
   }
+  function syncProductLinks(review) {
+    document.querySelectorAll('[data-product-href]').forEach(link => {
+      link.href = link.dataset.productHref + (review ? '?mode=review' : '');
+    });
+  }
   function reviewMode(next) {
     const review = next === 'review';
     $('review-panel').classList.toggle('open', review);
     document.querySelectorAll('#review-toggle button').forEach(button => button.classList.toggle('active', button.dataset.mode === next));
+    syncProductLinks(review);
     if (review) renderPrd();
   }
   $('review-toggle').onclick = event => { const button = event.target.closest('[data-mode]'); if (button) reviewMode(button.dataset.mode); };
   $('close-review').onclick = () => reviewMode('demo');
   render('code');
+  syncProductLinks(false);
   if (new URLSearchParams(location.search).get('mode') === 'review') reviewMode('review');
 })();
 </script>

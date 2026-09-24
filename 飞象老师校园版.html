@@ -27,8 +27,10 @@
 .edu-login .edu-eye{border:0;background:transparent;cursor:pointer;color:#8f958e;padding:4px;display:flex;align-items:center}
 .edu-eye svg{width:19px;height:19px}
 .edu-back{position:absolute;top:22px;left:28px;border:0;background:none;font-size:13px;color:#77796f;cursor:pointer;padding:0}
-.edu-product-switch{position:absolute;top:20px;right:28px;z-index:2;color:#305c4e;font-size:13px;line-height:20px;text-decoration:none}
-.edu-product-switch:hover{color:#244a3d;text-decoration:underline}
+.product-page-switch{position:fixed;top:20px;left:50%;z-index:2147482999;display:flex;gap:4px;padding:4px;transform:translateX(-50%);border:1px solid #e4e7e3;border-radius:12px;background:#fff;box-shadow:0 5px 22px rgba(37,66,55,.12)}
+.product-page-switch a{min-width:94px;padding:7px 15px;border-radius:8px;color:#77796f;font-size:13px;font-weight:600;line-height:20px;text-align:center;text-decoration:none}
+.product-page-switch a:hover{color:#305c4e;background:#f4f7f5}
+.product-page-switch a.active{color:#fff;background:#305c4e;box-shadow:0 3px 9px rgba(48,92,78,.2)}
 .edu-intro{margin:18px 24px 24px;text-align:center;font-size:13px;color:#99988f}
 .edu-hint{font-size:12px;color:#99988f;margin:8px 0 0;line-height:18px}
 .edu-login.is-reset .cardHead_Tb42_{padding-top:56px}
@@ -57,8 +59,7 @@
 .mode-toggle{position:fixed;top:24px;right:32px;z-index:2147483000;display:flex;background:#fff;border-radius:12px;box-shadow:0 4px 24px -4px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.06);overflow:hidden;cursor:grab;opacity:.38;transition:opacity .2s;user-select:none}.mode-toggle:hover,.mode-toggle.is-dragging{opacity:1}.mode-toggle button{padding:10px 24px;border:0;background:transparent;color:#8b9993;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600}.mode-toggle button.active{background:var(--rp-accent);color:#fff}
 /* product-review:end */
 /* education-login:end */
-</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"><div class=""><div class="ant-app"><div class="page_VvovN"><main class="main_EZqGG"><section class="schoolPanel_XaxZw"><div class="cover_DefxN" data-testid="school-cover"><img src="./飞象老师校园版_files/school-cover.097874cb842824fda58d.png" alt="校园风采"></div></section><section class="loginCard_F2W0q edu-login" aria-labelledby="school-title">
-<a class="edu-product-switch" href="./zhixue.html" data-sec="7">切换到智学登录 ›</a>
+</style></head><body><noscript>You need to enable JavaScript to run this app.</noscript><nav class="product-page-switch" aria-label="产品页面切换" data-sec="0"><a class="active" aria-current="page" href="./飞象老师校园版.html" data-product-href="./飞象老师校园版.html">飞象老师</a><a href="./zhixue.html" data-product-href="./zhixue.html">Zhixue</a></nav><div id="root"><div class=""><div class="ant-app"><div class="page_VvovN"><main class="main_EZqGG"><section class="schoolPanel_XaxZw"><div class="cover_DefxN" data-testid="school-cover"><img src="./飞象老师校园版_files/school-cover.097874cb842824fda58d.png" alt="校园风采"></div></section><section class="loginCard_F2W0q edu-login" aria-labelledby="school-title">
 <button class="edu-back" id="back" type="button" hidden>‹ 返回登录</button>
 <div class="cardHead_Tb42_"><div class="schoolBadge_VnVAs"><img src="./飞象老师校园版_files/school-logo.0567dcc371b0eeacb17c5575d7f31213.svg" alt="学校 Logo"></div><h1 class="cardTitle_Im6gR" id="school-title">欢迎登录</h1></div>
 <div class="edu-tabs" role="tablist" aria-label="登录方式" data-sec="1"><button id="phone-tab" role="tab" aria-selected="true" aria-controls="login-form" type="button" data-track="/click/teacherLoginPage/switchPhoneLogin | 切换手机号验证码登录 | 无">手机号验证码登录</button><button id="edu-tab" role="tab" aria-selected="false" aria-controls="login-form" tabindex="-1" type="button" data-track="/click/teacherLoginPage/switchAccountLogin | 切换账号密码登录 | 无">账号密码登录</button></div>
@@ -242,14 +243,15 @@
 
 <script type="text/markdown" id="prdSrc">
 # 飞象老师校园版登录页
-> v1.8 · Web 桌面端 · 2026-09-24
+> v1.9 · Web 桌面端 · 2026-09-24
 
 ## 0. 产品登录页切换 [UPDATED]
-展示：登录卡右上角展示「切换到智学登录 ›」。
+展示：页面顶部固定展示「飞象老师 / Zhixue」分段切换器，当前页面高亮「飞象老师」。
 
 交互：
-- 点击后打开同项目的智学登录页 `zhixue.html`
-- 在登录、首次设置新密码和忘记密码页面均保留入口
+- 点击「Zhixue」打开同项目的智学登录页 `zhixue.html`
+- 在登录、首次设置新密码和忘记密码页面均固定展示
+- 当前处于过稿模式时，切换产品后继续保持过稿模式
 
 ## 1. 登录方式切换
 展示：手机号验证码登录、账号密码登录两种方式。
@@ -358,7 +360,7 @@
 
 <script>
 var PRD_MD=(document.getElementById('prdSrc')||{textContent:''}).textContent.trim();
-var PRD_KEY='prd:'+document.title+':v1.8';
+var PRD_KEY='prd:'+document.title+':v1.9';
 function rpInline(s){return s.replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');}
 function renderMd(md){
   var inList=false,out=[];
@@ -400,9 +402,11 @@ function renderMarkers(){
 function focusSection(sec){if(document.getElementById('rpEditArea').style.display==='block')cancelPrdEdit();_activeSec=sec;renderMarkers();var h=document.getElementById('rp-sec-'+sec);if(h){h.scrollIntoView({behavior:'smooth',block:'start'});h.classList.add('rp-sec-flash');setTimeout(function(){h.classList.remove('rp-sec-flash');},1600);}}
 function refreshMarkers(){if(document.getElementById('reviewPanel').classList.contains('open')){collectSections();renderMarkers();}}
 window.addEventListener('scroll',refreshMarkers,true);window.addEventListener('resize',refreshMarkers);
-function setReviewMode(mode){var open=mode==='review';document.getElementById('reviewPanel').classList.toggle('open',open);document.querySelectorAll('#modeToggle button').forEach(function(b,i){b.classList.toggle('active',open?i===1:i===0);});if(open){renderPrd();collectSections();renderMarkers();}else{_activeSec='';document.getElementById('rpMarkers').innerHTML='';}}
+function syncProductLinks(review){document.querySelectorAll('[data-product-href]').forEach(function(link){link.href=link.getAttribute('data-product-href')+(review?'?mode=review':'');});}
+function setReviewMode(mode){var open=mode==='review';document.getElementById('reviewPanel').classList.toggle('open',open);document.querySelectorAll('#modeToggle button').forEach(function(b,i){b.classList.toggle('active',open?i===1:i===0);});syncProductLinks(open);if(open){renderPrd();collectSections();renderMarkers();}else{_activeSec='';document.getElementById('rpMarkers').innerHTML='';}}
 (function(){var p=document.getElementById('reviewPanel'),h=document.getElementById('rpHeader'),drag=false,ox,oy,sx,sy;h.addEventListener('mousedown',function(e){if(e.target.closest('.rp-close'))return;drag=true;ox=e.clientX;oy=e.clientY;sx=p.offsetLeft;sy=p.offsetTop;e.preventDefault();});document.addEventListener('mousemove',function(e){if(!drag)return;p.style.left=Math.max(0,Math.min(sx+e.clientX-ox,innerWidth-80))+'px';p.style.top=Math.max(0,Math.min(sy+e.clientY-oy,innerHeight-40))+'px';p.style.right='auto';});document.addEventListener('mouseup',function(){drag=false;});})();
 (function(){var t=document.getElementById('modeToggle'),moved=false;t.addEventListener('mousedown',function(e){var ox=e.clientX,oy=e.clientY,r=t.getBoundingClientRect(),sl=r.left,st=r.top;moved=false;function mv(ev){if(!moved&&Math.abs(ev.clientX-ox)+Math.abs(ev.clientY-oy)>4){moved=true;t.classList.add('is-dragging');}if(!moved)return;t.style.left=Math.max(0,Math.min(sl+ev.clientX-ox,innerWidth-t.offsetWidth))+'px';t.style.top=Math.max(0,Math.min(st+ev.clientY-oy,innerHeight-t.offsetHeight))+'px';t.style.right='auto';}function up(){document.removeEventListener('mousemove',mv);document.removeEventListener('mouseup',up);t.classList.remove('is-dragging');}document.addEventListener('mousemove',mv);document.addEventListener('mouseup',up);});t.addEventListener('click',function(e){if(moved){e.stopPropagation();e.preventDefault();moved=false;}},true);})();
+syncProductLinks(false);
 if(new URLSearchParams(location.search).get('mode')==='review')setReviewMode('review');
 </script>
 </body></html>
